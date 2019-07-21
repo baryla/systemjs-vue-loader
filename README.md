@@ -14,7 +14,7 @@ System.config({
     },
     ...
     map: {
-        'vue-loader': 'npm:systemjs-vue-loader',
+        'vue-loader': 'npm:systemjs-vue-loader@latest',
         'vue-template-compiler': 'npm:vue-template-compiler@latest',
         'vue-template-es2015-compiler': 'npm:vue-template-es2015-compiler@latest',
         'sass.js': 'npm:sass.js@latest',
