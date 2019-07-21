@@ -51,7 +51,7 @@ System.config({
 ```
 
 ## Todo
-[ ] Support for coped styles
-[ ] Support for Less and Stylus styles
-[ ] Support for Jade and Pug
-[ ] Support for Typescript
+- [ ] Support for coped styles
+- [ ] Support for Less and Stylus styles
+- [ ] Support for Jade and Pug
+- [ ] Support for Typescript
