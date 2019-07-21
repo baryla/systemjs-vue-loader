@@ -3,6 +3,12 @@ This package gives you the ability to use .vue files in your SystemJS projects. 
 
 `DO NOT use this package in production environment because it's not fully tested and may not work with your SystemJS version. I have only tested this on version 0.21 of SystemJS.`
 
+## Installation
+```bash
+npm install systemjs-vue-loader
+```
+...or just provide a path to an NPM CDN unpkg and map it (example below).
+
 ## Setup (SystemJS Config file)
 ```javascript
 System.config({
@@ -14,7 +20,7 @@ System.config({
     },
     ...
     map: {
-        'vue-loader': 'npm:systemjs-vue-loader',
+        'vue-loader': 'npm:systemjs-vue-loader@latest',
         'vue-template-compiler': 'npm:vue-template-compiler@latest',
         'vue-template-es2015-compiler': 'npm:vue-template-es2015-compiler@latest',
         'sass.js': 'npm:sass.js@latest',
