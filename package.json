@@ -1,0 +1,21 @@
+{
+    "name": "systemjs-vue-loader",
+    "version": "0.1.0",
+    "description": "Enables the use of .vue files in SystemJS projects",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/baryla/systemjs-vue-loader.git"
+    },
+    "dependencies": {
+        "vue-template-compiler": "^2.6.10",
+        "vue-template-es2015-compiler": "^1.9.1",
+        "acorn": "^6.2.1"
+    },
+    "keywords": ["systemjs", "vue", "loader", "components"],
+    "author": {
+        "name": "Adrian Barylski",
+        "url": "https://www.github.com/baryla"
+    },
+    "license": "MIT"
+}
