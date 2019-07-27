@@ -23,8 +23,7 @@ System.config({
         'util': 'npm:util@latest',
         'is-generator-function': 'npm:is-generator-function@latest',
         'is-arguments': 'npm:is-arguments@latest',
-        'inherits': 'npm:inherits@latest',
-        'css-parser': './libs/css'
+        'inherits': 'npm:inherits@latest'
     },
     paths: {
         'npm:': 'https://unpkg.com/'
@@ -36,14 +35,16 @@ System.config({
         'vue-template-es2015-compiler': {
             main: 'index.js'
         },
+        'vue-component-loader': {
+            map: {
+                'css-parser': './libs/css/index.js'
+            }
+        },
         'util': {
             main: 'util.js',
             map: {
                 './support/isBuffer': './support/isBufferBrowser.js'
             }
-        },
-        'css-parser': {
-            main: 'index.js'
         },
         'postcss-selector-parser': {
             main: 'dist/index.js',

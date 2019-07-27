@@ -62,7 +62,7 @@ class VueLoader {
 
         if (styles.length) {
             styles.forEach(style =>
-                this.promises.push(this._styleCompiler(style.content, style.lang, style.scoped || false, scopeId))
+                this.promises.push(this._styleCompiler(style.content, style.lang || null, style.scoped || false, scopeId))
             );
         }
 
@@ -87,6 +87,9 @@ class VueLoader {
      * @returns {Promise}
      */
     _styleCompiler(content, lang, scoped, scopeId) {
+        if (lang === null)
+            return { type: 'style', lang: 'css', data: content };
+            
         return this[`_compile${this._getStyleLang(lang)}`](content).then(data => {
             return { type: 'style', lang, data };
         }).then(data => {
