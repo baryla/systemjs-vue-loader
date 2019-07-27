@@ -1,6 +1,6 @@
 {
     "name": "systemjs-vue-loader",
-    "version": "0.2.0",
+    "version": "0.2.0.1",
     "description": "Enables the use of .vue files in SystemJS projects",
     "main": "index.js",
     "repository": {
