@@ -6,6 +6,8 @@
 
 const templateCompiler = require('vue-template-compiler');
 const transpile = require('vue-template-es2015-compiler');
+const cssParser = require('css-parser');
+const selectorParser = require('postcss-selector-parser');
 const parse = require('acorn').parse;
 
 let scopeId = 1;
@@ -60,7 +62,7 @@ class VueLoader {
 
         if (styles.length) {
             styles.forEach(style =>
-                this.promises.push(this._styleCompiler(style.content, style.lang, style.scoped || false))
+                this.promises.push(this._styleCompiler(style.content, style.lang, style.scoped || false, scopeId))
             );
         }
 
@@ -84,17 +86,15 @@ class VueLoader {
      * 
      * @returns {Promise}
      */
-    _styleCompiler(content, lang, scoped) {
+    _styleCompiler(content, lang, scoped, scopeId) {
         return this[`_compile${this._getStyleLang(lang)}`](content).then(data => {
             return { type: 'style', lang, data };
         }).then(data => {
             if (scoped) {
-                /**
-                 * @todo
-                 * 
-                 * scoped styles are not yet supported. this is extremely difficult to
-                 * do without postcss support. need more time to figure this one out.
-                 */
+                return {
+                    ...data,
+                    data: this._addScopesToStyles(data.data, scopeId)
+                }
             }
             return data;
         });
@@ -166,16 +166,74 @@ class VueLoader {
         }
         return name + '.template'
     }
+    
+    /**
+     * Master function that returns the correct, formatted,
+     * scoped CSS, ready to be put on the page.
+     * 
+     * @param {string} css 
+     * @param {string} scopeId 
+     * 
+     * @returns {object}
+     */
+    _addScopesToStyles(css, scopeId) {
+        let parsedStyles = cssParser.parse(css);
+
+        return cssParser.stringify({
+            ...parsedStyles,
+            stylesheet: this._applyAttributeToSelector(parsedStyles.stylesheet, scopeId)
+        });
+    }
 
     /**
-     * @todo
+     * Loop through a given "tree" and if the tree has 
+     * selectors, parsed them and add the scopeId. If they have rules,
+     * loop through them and run the function again. 
+     * Essentially, recursively adding the scopeId 
      * 
-     * Here, we will need to figure out a way to inject 
-     * the scope ID so that the components can be properly 
-     * scoped.
+     * @param {object} tree 
+     * @param {string} scopeId 
+     * 
+     * @returns {object}
      */
-    _setScopeInStyles() {
-        // WIP
+    _applyAttributeToSelector(tree, scopeId) {
+        if ('selectors' in tree) {
+            tree.selectors.forEach((selector, index) => {
+                tree.selectors[index] = this._postcssParser(selector, scopeId);
+            });
+        }
+
+        if ('rules' in tree) {
+            tree.rules.forEach((rule, index) => {
+                tree.rules[index] = this._applyAttributeToSelector(rule, scopeId);
+            });
+        }
+
+        return tree;
+    }
+
+    /**
+     * With a given css string and and a scopeId,
+     * return the same string with the scopeId in 
+     * an attribute position. 
+     * 
+     * @param {string} css 
+     * @param {string} scopeId
+     * 
+     * @returns {string}
+     */
+    _postcssParser(css, scopeId) {
+        return selectorParser(selectors => {
+            selectors.each(selector => {
+                var node = null
+                selector.each(n => {
+                    if (n.type !== 'pseudo') node = n
+                })
+                selector.insertAfter(node, selectorParser.attribute({
+                    attribute: scopeId
+                }))
+            })
+        }).processSync(css);
     }
 
     /**
@@ -264,7 +322,7 @@ class TemplateParser {
      * 
      * @returns {Object}
      */
-    parse (src, opts, fn) {
+    parse(src, opts, fn) {
         if (src && typeof src === 'object' && src.constructor.name === 'Buffer') {
             src = src.toString();
         }
@@ -277,20 +335,20 @@ class TemplateParser {
         if (typeof src !== 'string') src = String(src);
         if (opts.parser) parse = opts.parser.parse;
         var ast = parse(src, opts);
-        
+
         var result = {
-            chunks : src.split(''),
-            toString : function () { return result.chunks.join('') },
-            inspect : function () { return result.toString() }
+            chunks: src.split(''),
+            toString: function () { return result.chunks.join('') },
+            inspect: function () { return result.toString() }
         };
 
         var self = this;
-        (function walk (node, parent) {
+        (function walk(node, parent) {
             self.insertHelpers(node, parent, result.chunks);
-    
+
             Object.keys(node).forEach(key => {
                 if (key === 'parent') return;
-                
+
                 var child = node[key];
                 if (Array.isArray(child)) {
                     child.forEach(c => {
@@ -303,10 +361,10 @@ class TemplateParser {
                     walk(child, node);
                 }
             });
-    
+
             fn(node);
         })(ast, undefined);
-        
+
         return result;
     }
 
@@ -319,13 +377,13 @@ class TemplateParser {
      * 
      * @returns {void}
      */
-    insertHelpers (node, parent, chunks) {
+    insertHelpers(node, parent, chunks) {
         node.parent = parent;
-        
+
         node.source = function () {
             return chunks.slice(node.start, node.end).join('');
         };
-        
+
         if (node.update && typeof node.update === 'object') {
             var prev = node.update;
             Object.keys(prev).forEach(key => {
@@ -336,8 +394,8 @@ class TemplateParser {
         else {
             node.update = update;
         }
-        
-        function update (s) {
+
+        function update(s) {
             chunks[node.start] = s;
             for (var i = node.start + 1; i < node.end; i++) {
                 chunks[i] = '';
