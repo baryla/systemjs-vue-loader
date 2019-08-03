@@ -16,6 +16,7 @@ System.config({
         'vue-component-loader': 'npm:systemjs-vue-loader@latest',
         'postcss-selector-parser': 'npm:postcss-selector-parser@latest',
         'sass.js': 'npm:sass.js@latest',
+        'less': 'npm:less@latest',
         'acorn': 'npm:acorn@latest',
         'cssesc': 'npm:cssesc@latest',
         'indexes-of': 'npm:indexes-of@latest',

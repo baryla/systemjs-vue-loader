@@ -1,6 +1,6 @@
 {
     "name": "systemjs-vue-loader",
-    "version": "0.2.2",
+    "version": "0.3.0",
     "description": "Enables the use of .vue files in SystemJS projects",
     "main": "index.js",
     "repository": {
@@ -12,6 +12,7 @@
         "vue-template-es2015-compiler": "^1.9.1",
         "acorn": "^6.2.1",
         "sass.js": "^0.11.0",
+        "less": "^3.9.0",
         "postcss-selector-parser": "^6.0.2"
     },
     "keywords": ["systemjs", "vue", "loader", "components"],
