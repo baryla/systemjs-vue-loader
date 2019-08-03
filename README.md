@@ -1,5 +1,9 @@
 # SystemJS Vue Loader
-This package gives you the ability to use .vue files in your SystemJS projects. At the moment, there is only support for SASS/SCSS in styles but if you'd like to see more preprocessors supported, let me knoww :)
+This package gives you the ability to use .vue files in your SystemJS projects.
+At the moment, there is support for:
+- SCSS (there are some issues with SASS)
+- LESS
+- Scoped styles
 
 `DO NOT use this package in production environment because it's not fully tested and may not work with your SystemJS version. I have only tested this on version 0.21 of SystemJS.`
 
@@ -24,6 +28,7 @@ System.config({
         'vue-template-compiler': 'npm:vue-template-compiler@latest',
         'vue-template-es2015-compiler': 'npm:vue-template-es2015-compiler@latest',
         'sass.js': 'npm:sass.js@latest',
+        'less': 'npm:less@latest',
         'acorn': 'npm:acorn@latest'
     },
     ...
@@ -50,6 +55,7 @@ System.config({
         'vue-template-compiler': '/node_modules/vue-template-compiler',
         'vue-template-es2015-compiler': '/node_modules/vue-template-es2015-compiler',
         'sass.js': '/node_modules/sass.js',
+        'less': '/node_modules/less',
         'acorn': '/node_modules/acorn'
     },
     ...
@@ -57,7 +63,6 @@ System.config({
 ```
 
 ## Todo
-- [x] Support for scoped styles
-- [ ] Support for Less and Stylus styles
+- [ ] Support for Stylus styles
 - [ ] Support for Jade and Pug
 - [ ] Support for Typescript

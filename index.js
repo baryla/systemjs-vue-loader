@@ -1,4 +1,4 @@
-import { compile } from './src/compiler';
+import { compile } from './src/compiler.js';
 
 const translate = async (load) => {
     return load.source = await compile(load)
