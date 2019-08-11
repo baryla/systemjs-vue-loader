@@ -1,19 +1,10 @@
-import templateParser from './template-parser.js';
-import templateCompiler from './template-compiler.js';
-import styleCompiler from './style-compiler.js';
+const templateParser = require('./template-parser.js');
+const templateCompiler = require('./template-compiler.js');
+const styleCompiler = require('./style-compiler.js');
 
 let scopeId = 1;
 let fileRegistry = Object.create(null);
 
-/**
- * Function that handles all of the compilation of the module.
- * It first compiles the styles and inserts them into the head
- * and then the templates.
- * 
- * @param {Object} load
- * 
- * @returns {Object}
- */
 const compile = async ({ name, source, address }) => {
     let { script, template, styles } = templateCompiler.parseComponent(source);
     let scopeId = styles.some(s => s.scoped) ? 'data-v-' + genScopedId(name) : null;
@@ -72,15 +63,10 @@ const compile = async ({ name, source, address }) => {
     });
 }
 
-/**
- * Generate a scope ID
- * 
- * @param {String} name 
- * 
- * @returns {String}
- */
 const genScopedId = (name) => {
     return fileRegistry[name] || (fileRegistry[name] = scopeId++);
 }
 
-export { compile };
+module.exports = { 
+    compile 
+};

@@ -1,21 +1,38 @@
 {
     "name": "systemjs-vue-loader",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "description": "Enables the use of .vue files in SystemJS projects",
-    "main": "index.js",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "parcel build index.js -d dist --no-source-maps"
+    },
     "repository": {
         "type": "git",
         "url": "git://github.com/baryla/systemjs-vue-loader.git"
     },
     "dependencies": {
-        "vue-template-compiler": "^2.6.10",
-        "vue-template-es2015-compiler": "^1.9.1",
         "acorn": "^6.2.1",
-        "sass.js": "^0.11.0",
-        "less": "^3.9.0",
-        "postcss-selector-parser": "^6.0.2"
+        "indexes-of": "^1.0.1",
+        "inherits": "^2.0.4",
+        "is-arguments": "^1.0.4",
+        "is-generator-function": "^1.0.7",
+        "postcss-selector-parser": "^6.0.2",
+        "vue-template-compiler": "^2.6.10",
+        "vue-template-es2015-compiler": "^1.9.1"
     },
-    "keywords": ["systemjs", "vue", "loader", "components"],
+    "devDependencies": {
+        "@babel/core": "^7.5.5",
+        "@babel/runtime": "^7.5.5",
+        "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+        "@babel/plugin-transform-runtime": "^7.5.5",
+        "@babel/plugin-transform-spread": "^7.2.2"
+    },
+    "keywords": [
+        "systemjs",
+        "vue",
+        "loader",
+        "components"
+    ],
     "author": {
         "name": "Adrian Barylski",
         "url": "https://www.github.com/baryla"

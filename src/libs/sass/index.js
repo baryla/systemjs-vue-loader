@@ -6,7 +6,7 @@
  * 
  * @returns {Promise}
  */
-export default function (content) {
+module.exports = function (content) {
     return System.import('sass.js').then(sass => {
         return new Promise((resolve, reject) => {
             sass.compile(content, compiled => {

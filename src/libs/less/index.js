@@ -7,7 +7,7 @@
  * 
  * @returns {Promise}
  */
-export default function (content, address) {
+module.exports = function (content, address) {
     return System.import('less').then(less => {
         return new Promise((resolve, reject) => {
             return less.render(content)

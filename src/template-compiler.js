@@ -1,5 +1,5 @@
-import templateCompiler from 'vue-template-compiler';
-import transpile from 'vue-template-es2015-compiler';
+const templateCompiler = require('vue-template-compiler');
+const transpile = require('vue-template-es2015-compiler');
 
 /**
  * Compiles the given template into HTML
@@ -22,9 +22,7 @@ const compile = ({ content, lang }, name) => {
  * 
  * @return {Function}
  */
-const langLoader = (lang) => {
-    return [];
-}
+const langLoader = lang => [];
 
 /**
  * Returns the result from parseComponent
@@ -33,9 +31,7 @@ const langLoader = (lang) => {
  * 
  * @returns {Object}
  */
-const parseComponent = (source) => {
-    return templateCompiler.parseComponent(source);
-}
+const parseComponent = source => templateCompiler.parseComponent(source);
 
 /**
  * Based on the given name, return a new one
@@ -77,9 +73,7 @@ const compileTemplateAsModule = (name, template) => {
  * 
  * @returns {transpile}
  */
-const toFn = (code) => {
-    return transpile('function render () {' + code + '}')
-}
+const toFn = code => transpile('function render () {' + code + '}');
 
 const addBrowserTemplateHandling = (name, template) => {
     System.set(name, System.newModule(
@@ -87,7 +81,7 @@ const addBrowserTemplateHandling = (name, template) => {
     ));
 }
 
-export default {
+module.exports = {
     compile,
     parseComponent, 
     getTemplateModuleName, 

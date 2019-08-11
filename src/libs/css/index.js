@@ -8,7 +8,10 @@
  * @url https://github.com/reworkcss/css
  */
 
-import parse from './lib/parse/index';
-import stringify from './lib/stringify/index';
+const parse = require('./lib/parse/index');
+const stringify = require('./lib/stringify/index');
 
-export default { parse, stringify };
+module.exports = { 
+    parse, 
+    stringify 
+};

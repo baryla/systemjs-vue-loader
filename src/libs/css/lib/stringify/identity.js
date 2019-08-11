@@ -3,14 +3,14 @@
  * Module dependencies.
  */
 
-import Base from './compiler';
-import inherits from 'inherits';
+const Base = require('./compiler');
+const inherits = require('inherits');
 
 /**
  * Expose compiler.
  */
 
-export default Compiler;
+module.exports = Compiler;
 
 /**
  * Initialize a new `Compiler`.

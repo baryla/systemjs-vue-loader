@@ -11,20 +11,9 @@ System.config({
         'babel': '/babel.min.js',
         'systemjs-babel-build': '/systemjs-babel-build.js',
         'vue': 'npm:vue@latest',
-        'vue-template-compiler': 'npm:vue-template-compiler@latest',
-        'vue-template-es2015-compiler': 'npm:vue-template-es2015-compiler@latest',
         'vue-component-loader': 'npm:systemjs-vue-loader@latest',
-        'postcss-selector-parser': 'npm:postcss-selector-parser@latest',
         'sass.js': 'npm:sass.js@latest',
         'less': 'npm:less@latest',
-        'acorn': 'npm:acorn@latest',
-        'cssesc': 'npm:cssesc@latest',
-        'indexes-of': 'npm:indexes-of@latest',
-        'uniq': 'npm:uniq@latest',
-        'util': 'npm:util@latest',
-        'is-generator-function': 'npm:is-generator-function@latest',
-        'is-arguments': 'npm:is-arguments@latest',
-        'inherits': 'npm:inherits@latest'
     },
     paths: {
         'npm:': 'https://unpkg.com/'
@@ -33,25 +22,9 @@ System.config({
         'vue': {
             main: 'dist/vue.runtime.common.prod.js'
         },
-        'vue-template-es2015-compiler': {
-            main: 'index.js'
-        },
         'vue-component-loader': {
             map: {
                 'css-parser': './libs/css/index.js'
-            }
-        },
-        'util': {
-            main: 'util.js',
-            map: {
-                './support/isBuffer': './support/isBufferBrowser.js'
-            }
-        },
-        'postcss-selector-parser': {
-            main: 'dist/index.js',
-            map: {
-                './dist/selectors': './dist/selectors/index.js',
-                './dist/util': './dist/util/index.js'
             }
         }
     }

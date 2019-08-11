@@ -3,7 +3,7 @@
  * Expose `Compiler`.
  */
 
-export default Compiler;
+module.exports = Compiler;
 
 /**
  * Initialize a compiler.

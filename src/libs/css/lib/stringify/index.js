@@ -2,8 +2,8 @@
  * Module dependencies.
  */
 
-import Compressed from './compress';
-import Identity from './identity';
+const Compressed = require('./compress');
+const Identity = require('./identity');
 
 /**
  * Stringfy the given AST `node`.
@@ -19,7 +19,7 @@ import Identity from './identity';
  * @api public
  */
 
-export default function (node, options) {
+module.exports = function (node, options) {
     options = options || {};
 
     let compiler = options.compress

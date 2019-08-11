@@ -1,0 +1,7 @@
+{
+    "plugins": [
+        ["@babel/plugin-transform-runtime"],
+        ["@babel/plugin-transform-spread"],
+        ["@babel/plugin-syntax-dynamic-import"]
+    ]
+}

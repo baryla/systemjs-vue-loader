@@ -1,6 +1,5 @@
-import selectorParser from 'postcss-selector-parser';
-
-import cssParser from './libs/css/index.js';
+const selectorParser = require('postcss-selector-parser');
+const cssParser = require('./libs/css');
 
 /**
  * Compile raw content
@@ -18,7 +17,7 @@ const compile = async (content, lang, scoped, scopeId, address) => {
         return { type: 'style', lang: 'css', data: content };
         
     return langLoader(lang).then(compiler => {
-        return compiler.default(content, address);
+        return compiler(content, address);
     }).then(data => {
         data = { type: 'style', lang, data };
 
@@ -40,11 +39,11 @@ const compile = async (content, lang, scoped, scopeId, address) => {
  * 
  * @return {Function}
  */
-const langLoader = (lang) => {
+const langLoader = async (lang) => {
     const langs = {
-        sass: import('./libs/sass/index.js'),
-        scss: import('./libs/sass/index.js'),
-        less: import('./libs/less/index.js')
+        sass: require('./libs/sass'),
+        scss: require('./libs/sass'),
+        less: require('./libs/less')
     };
 
     return langs[lang];
@@ -142,4 +141,7 @@ const inject = ({ data, lang }, address) => {
     document.head.appendChild(newStyleTag);
 }
 
-export default { compile, inject };
+module.exports = { 
+    compile, 
+    inject 
+};

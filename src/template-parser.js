@@ -1,4 +1,4 @@
-import { parse as acornParser } from 'acorn';
+const acorn = require('acorn');
 
 /**
  * Parser based on falafel.js
@@ -26,7 +26,7 @@ const parse = (src, opts, fn) => {
     }
     src = src === undefined ? opts.source : src;
     if (typeof src !== 'string') src = String(src);
-    var ast = acornParser(src, opts);
+    var ast = acorn.parse(src, opts);
 
     var result = {
         chunks: src.split(''),
@@ -113,4 +113,7 @@ const insertTemplateInExport = (content, template) => {
     return content;
 }
 
-export default { parse, insertTemplateInExport };
+module.exports = { 
+    parse, 
+    insertTemplateInExport 
+};
